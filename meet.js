@@ -40,7 +40,8 @@ const createEvent = async (auth, user) => {
     eventId: eventCreateResponse.data.id,
     resource: {
       conferenceData: {
-        createRequest: { requestId: Number(new Date()) }
+        createRequest: { requestId: Number(new Date()) },
+        name
       }
     },
     conferenceDataVersion: 1
