@@ -45,7 +45,7 @@ const createEvent = async auth => {
     },
     conferenceDataVersion: 1
   });
-  return meet.data.htmlLink;
+    return `https://meet.google.com/${meet.data.conferenceData.conferenceId}`;
 };
 
 module.exports ={

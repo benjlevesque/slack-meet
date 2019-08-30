@@ -11,8 +11,8 @@ app.get('/', (request, response) =>{
 });
 
 app.post('/', async (req, res)=>{
-  await login();
-  const url = await createEvent();
+  const auth = await login();
+  const url = await createEvent(auth);
   res.send({
     response_type: 'in_channel', // public to the channel
     text: url

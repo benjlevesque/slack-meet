@@ -9,18 +9,7 @@ const SCOPES = ["https://www.googleapis.com/auth/calendar"];
 const TOKEN_PATH = "token.json";
 
 const login = () => {
-  return new Promise(resolve => {
-    if(process.env.CREDENTIALS){
-      authorize(JSON.parse(process.env.CREDENTIALS),resolve);
-    } else{
-      // Load client secrets from a local file.
-      fs.readFile("credentials.json", (err, content) => {
-        if (err) return console.log("Error loading client secret file:", err);
-        // Authorize a client with credentials, then call the Google Calendar API.
-        authorize(JSON.parse(content), resolve);
-      });
-    }
-  });
+  return new Promise(resolve => authorize(JSON.parse(process.env.CREDENTIALS), resolve));
 }
 
 /**
