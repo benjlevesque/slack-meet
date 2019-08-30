@@ -11,12 +11,10 @@ const createEvent = async (auth, user) => {
   var event = {
     summary: name,
     start: {
-      dateTime: new Date().toISOString(),
-      timeZone: "Europe/Paris"
+      dateTime: new Date().toISOString()       
     },
     end: {
-      dateTime: addMinutes(new Date(), "15").toISOString(),
-      timeZone: "Europe/Paris"
+      dateTime: addMinutes(new Date(), "15").toISOString()      
     }
 
     // attendees: [{ email: "benjamin.levesque@request.network" }, { email: "sbrin@example.com" }],
