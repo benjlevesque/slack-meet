@@ -31,12 +31,12 @@ const createEvent = async auth => {
 
   const eventCreateResponse = await calendar.events.insert({
     auth: auth,
-    calendarId: "primary",
+    calendarId: "request.network_8aerpjn4aq0ij5r636da80kv2k@group.calendar.google.com",
     resource: event
   });
 
   const meet = await calendar.events.patch({
-    calendarId: "primary",
+    calendarId: "request.network_8aerpjn4aq0ij5r636da80kv2k@group.calendar.google.com",
     eventId: eventCreateResponse.data.id,
     resource: {
       conferenceData: {
