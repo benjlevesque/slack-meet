@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const {login}= require('./google-api');
-const {createEvent} = require("./meet");
+const { createEvent } = require("./meet");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -12,13 +12,11 @@ app.get('/', (request, response) =>{
 });
 
 app.post('/', async (req, res)=>{
-  console.log(req.body);
-
   const auth = await login();
-  const url = await createEvent(auth, req.body.user_name);
+  const {url,name} = await createEvent(auth, req.body.user_name);
   res.send({
     response_type: 'in_channel', // public to the channel
-    text: url
+    text: `Join <${url}|${name}>`
   });
 })
 

@@ -7,9 +7,9 @@ function addMinutes(date, minutes) {
 
 const createEvent = async (auth, user) => {
   const calendar = google.calendar({ version: "v3", auth });
-
+  const name= `Call with ${user}`;
   var event = {
-    summary: `Call by ${user}`,
+    summary: name,
     start: {
       dateTime: new Date().toISOString(),
       timeZone: "Europe/Paris"
@@ -40,12 +40,15 @@ const createEvent = async (auth, user) => {
     eventId: eventCreateResponse.data.id,
     resource: {
       conferenceData: {
-        createRequest: { requestId: "7qxalsvy0e" }
+        createRequest: { requestId: Number(new Date()) }
       }
     },
     conferenceDataVersion: 1
   });
-    return `https://meet.google.com/${meet.data.conferenceData.conferenceId}`;
+    return {
+      url:`https://meet.google.com/${meet.data.conferenceData.conferenceId}`,
+      name
+    };
 };
 
 module.exports ={
