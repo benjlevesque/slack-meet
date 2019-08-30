@@ -5,11 +5,11 @@ function addMinutes(date, minutes) {
   return new Date(date.getTime() + minutes * 60000);
 }
 
-const createEvent = async auth => {
+const createEvent = async (auth, user) => {
   const calendar = google.calendar({ version: "v3", auth });
 
   var event = {
-    summary: "Call",
+    summary: `Call by ${user}`,
     start: {
       dateTime: new Date().toISOString(),
       timeZone: "Europe/Paris"
