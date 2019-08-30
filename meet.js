@@ -35,7 +35,7 @@ const createEvent = async auth => {
     resource: event
   });
 
-  calendar.events.patch({
+  const meet = await calendar.events.patch({
     calendarId: "primary",
     eventId: eventCreateResponse.data.id,
     resource: {
@@ -45,6 +45,7 @@ const createEvent = async auth => {
     },
     conferenceDataVersion: 1
   });
+  return meet.data.htmlLink;
 };
 
 module.exports ={
