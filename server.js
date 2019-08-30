@@ -14,6 +14,7 @@ app.get('/', (request, response) =>{
 });
 
 app.post('/', async (req, res)=>{
+  console.log(`${req.body.user_name} created a meet in ${req.body.channel_name} (${req.body.channel_id})`);
   const auth = login();
   const {url,name} = await createEvent(auth, req.body.user_name);
   res.send({
