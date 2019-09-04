@@ -4,7 +4,8 @@
   "description": "Create Google meets from slack in an instant",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "build": "echo ok"
   },
   "dependencies": {
     "express": "^4.16.4",
