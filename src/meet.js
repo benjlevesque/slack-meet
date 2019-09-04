@@ -1,40 +1,30 @@
-const { google } = require("googleapis");
-const { login } = require("./google-api");
+import { google } from "googleapis";
 
-function addMinutes(date, minutes) {
-  return new Date(date.getTime() + minutes * 60000);
-}
+const addMinutes = (date, minutes) =>
+  new Date(date.getTime() + minutes * 60000);
 
-const createEvent = async (auth, user) => {
+export const createEvent = async (auth, user) => {
+  const calendarId = process.env.CALENDAR_ID;
   const calendar = google.calendar({ version: "v3", auth });
-  const name= `Call with ${user}`;
+  const name = `Call with ${user}`;
   var event = {
     summary: name,
     start: {
-      dateTime: new Date().toISOString()       
+      dateTime: new Date().toISOString()
     },
     end: {
-      dateTime: addMinutes(new Date(), "15").toISOString()      
+      dateTime: addMinutes(new Date(), "15").toISOString()
     }
-
-    // attendees: [{ email: "benjamin.levesque@request.network" }, { email: "sbrin@example.com" }],
-    // reminders: {
-    //   useDefault: false,
-    //   overrides: [
-    //     { method: "email", minutes: 24 * 60 },
-    //     { method: "popup", minutes: 10 }
-    //   ]
-    // }
   };
 
   const eventCreateResponse = await calendar.events.insert({
     auth: auth,
-    calendarId: "request.network_8aerpjn4aq0ij5r636da80kv2k@group.calendar.google.com",
+    calendarId,
     resource: event
   });
 
   const meet = await calendar.events.patch({
-    calendarId: "request.network_8aerpjn4aq0ij5r636da80kv2k@group.calendar.google.com",
+    calendarId,
     eventId: eventCreateResponse.data.id,
     resource: {
       conferenceData: {
@@ -44,12 +34,8 @@ const createEvent = async (auth, user) => {
     },
     conferenceDataVersion: 1
   });
-    return {
-      url:`https://meet.google.com/${meet.data.conferenceData.conferenceId}`,
-      name
-    };
-};
-
-module.exports ={
-  createEvent
+  return {
+    url: `https://meet.google.com/${meet.data.conferenceData.conferenceId}`,
+    name
+  };
 };
