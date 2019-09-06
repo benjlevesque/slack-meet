@@ -1,36 +1,41 @@
+import path from "path";
 import dotenv from "dotenv";
 import express, { json, urlencoded } from "express";
-import { login } from "./google-api";
-import { createEvent } from "./meet";
+import { setupMiddleware } from "./middlewares";
+import {
+  postHookHandler,
+  getAuthCallback,
+  getCalendarSetup,
+  postCalendar,
+  getHome,
+  getLogin
+} from "./controller";
+import { loadConfig } from "./google-api";
 
 dotenv.config();
-const requiredConfig = ["CLIENT_ID", "CLIENT_SECRET", "TOKEN", "CALENDAR_ID"];
+const requiredConfig = ["CLIENT_ID", "CLIENT_SECRET"];
 for (const config of requiredConfig) {
   if (!process.env[config]) {
     console.error(`missing required config ${config}`);
     process.exit(1);
   }
 }
+loadConfig();
 
 const app = express();
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
-app.get("/", (request, response) => {
-  response.send("OK");
-});
+app.get("/login", getLogin);
+app.get("/oauth2callback", getAuthCallback);
 
-app.post("/", async (req, res) => {
-  console.log(
-    `${req.body.user_name} created a meet in ${req.body.channel_name} (${req.body.channel_id})`
-  );
-  const auth = login();
-  const { url, name } = await createEvent(auth, req.body.user_name);
-  res.send({
-    response_type: "in_channel", // public to the channel
-    text: `Join <${url}|${name}>`
-  });
-});
+app.post("/", setupMiddleware, postHookHandler);
+app.get("/", setupMiddleware, getHome);
+app.get("/calendar", setupMiddleware, getCalendarSetup);
+app.post("/calendar", setupMiddleware, postCalendar);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);

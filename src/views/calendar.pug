@@ -1,0 +1,11 @@
+html
+  head
+    title= "Slack Meet"
+  body
+    h2= "Please choose a calendar to connect"
+    form(method='POST' action='/calendar')
+      each calendar in calendars
+        input(type="radio" name="calendar" id=calendar.id value=calendar.id)
+        label(for=calendar.id)= calendar.name
+        br
+      button(type="submit")= "OK"
