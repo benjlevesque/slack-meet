@@ -1,17 +1,16 @@
-FROM node:10-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
 COPY package.json ./package.json
-COPY yarn.lock ./yarn.lock
+COPY pnpm-lock.yaml ./pnpm-lock.yaml
 # Expose the app port
-RUN yarn
+RUN corepack enable
+RUN pnpm install
 COPY src ./src
-RUN yarn build
-
 
 ENV NODE_ENV=production
 ENV HOST 0.0.0.0
 
 EXPOSE 3000
-CMD ["node", "build/main.js"]
+CMD ["node", "src/main.js"]
