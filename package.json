@@ -11,17 +11,17 @@
   },
   "dependencies": {
     "@google-apps/meet": "^0.3.0",
-    "@google-cloud/local-auth": "^3.0.1",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
-  },
-  "devDependencies": {
-    "prettier": "^3.3.0",
+    "express": "^4.19.2",
     "google-auth-library": "^9.10.0"
   },
-  "packageManager": "pnpm@9.1.4",
+  "devDependencies": {
+    "@google-cloud/local-auth": "^3.0.1",
+    "prettier": "^3.3.0"
+  },
   "engines": {
-    "node": "^22.0.0",
-    "pnpm": "^9.0.0"
-  }
+    "node": "^22",
+    "pnpm": "^9"
+  },
+  "packageManager": "pnpm@9.10.0"
 }

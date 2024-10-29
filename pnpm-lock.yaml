@@ -11,19 +11,19 @@ importers:
       '@google-apps/meet':
         specifier: ^0.3.0
         version: 0.3.0
-      '@google-cloud/local-auth':
-        specifier: ^3.0.1
-        version: 3.0.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
       express:
         specifier: ^4.19.2
         version: 4.19.2
-    devDependencies:
       google-auth-library:
         specifier: ^9.10.0
         version: 9.10.0
+    devDependencies:
+      '@google-cloud/local-auth':
+        specifier: ^3.0.1
+        version: 3.0.1
       prettier:
         specifier: ^3.3.0
         version: 3.3.0
