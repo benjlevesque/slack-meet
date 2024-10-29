@@ -2,20 +2,26 @@
   "name": "slack-meet",
   "version": "0.0.1",
   "description": "Create Google meets from slack in an instant",
-  "main": "src/server.js",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "start": "backpack",
-    "build": "backpack build"
+    "start": "node src/index.js",
+    "generate-token": "node scripts/generate-token.js"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "dotenv": "^9.0.2",
-    "express": "^4.16.4",
-    "googleapis": "^73.0.0"
+    "@google-apps/meet": "^0.3.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "google-auth-library": "^9.10.0"
   },
-  "license": "MIT",
   "devDependencies": {
-    "backpack-core": "^0.8.4",
-    "@types/node": "^15.3.1"
-  }
+    "@google-cloud/local-auth": "^3.0.1",
+    "prettier": "^3.3.0"
+  },
+  "engines": {
+    "node": "^22",
+    "pnpm": "^9"
+  },
+  "packageManager": "pnpm@9.10.0"
 }
